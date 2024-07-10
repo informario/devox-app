@@ -8,8 +8,6 @@
   const input_content= ref("")
   const input_author=ref("")
   const input_title=ref("")
-  let id=0
-
 
 
   async function add_text() {
@@ -17,28 +15,25 @@
       window.alert("Por favor completar los campos correspondientes")
     }
     else{
-      parrafos.value.splice(0, 0, {id: id++, title:input_title.value, author:input_author.value, content: input_content.value})
-      await push(parrafos.value[0])
+      await push({id:0, title:input_title.value, author:input_author.value, content:input_content.value })
           .then(res => console.log("App.vue: recibido:" + res))
           .catch(err => console.log(err))
       input_content.value = ""
       input_title.value = ""
       input_author.value = ""
     }
+    fetch_texts()
   }
 
   async function fetch_texts() {
     let data;
+    parrafos.value = []
     await fetch()
       .then(data => {
         for (let i = data.length-1; i >= 0; i--) {
           parrafos.value.push({id: data[i].id, title: data[i].title, author: data[i].author, content: data[i].content})
-          if (data[i].id>= id){
-            id = data[i].id
-          }
           console.log(parrafos.value[parrafos.value.length-1])
         }
-        id++
       })
       .catch(error =>{
         this.error = 'Error al cargar los datos';
