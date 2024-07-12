@@ -39,6 +39,8 @@
     else{
       await getAuthToken({username:input_username_login.value, password:input_password_login.value})
         .then(jwt =>{
+          console.log(input_username_login.value)
+          localStorage.setItem("username", input_username_login.value)
           localStorage.setItem("jwt", jwt)
           router.push("/blog")
         })
@@ -72,4 +74,5 @@
     height: 20px;
     width: 23px;
   }
+  
 </style>
