@@ -1,6 +1,5 @@
 <script setup>
-  const props = defineProps(['paragraph', 'username'])
-  import '/src/assets/css/main.css';
+  const props = defineProps(['paragraph', 'username', "paragraphs"])
   import LikeButton from '/src/components/LikeButton.vue'
 </script>
 
@@ -8,13 +7,10 @@
   <div>
     <h2>{{paragraph.title}}</h2>
     <p>{{ paragraph.content }}</p>
-    <div class="mismo-renglon">
-
       <h3>{{ paragraph.author }}</h3>
       <Suspense>
-        <LikeButton :id="paragraph.id" :username="username"/>
+        <LikeButton :id="paragraph.id" :username="username" :paragraphs="paragraphs"/>
       </Suspense>
-    </div>
 
 
 
@@ -23,13 +19,13 @@
 </template>
 
 <style scoped>
-  @import '/src/assets/css/main.css';
-  .mismo-renglon{
-    text-align: right;
-    display: flex;
+  @import "/src/assets/css/styles1.css";
+  p{
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height:400px;
   }
-  .button{
-    float: right;
-  }
+
+
 
 </style>

@@ -47,6 +47,7 @@ export const pushParagraph = async (data) => {
 
 export const removeParagraph = async (data) =>{
     try {
+        console.log("HOLIS")
         const response = await apiBlog.post('/remove', data, getHeader());
         return response.data;
     }

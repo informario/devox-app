@@ -1,12 +1,18 @@
 import { createRouter, createMemoryHistory } from 'vue-router';
-import Blog from '@/Blog.vue'
-import SignUpForm from '@/SignUpForm.vue'
+import Blog from '@/components/Blog.vue'
+import LogInForm from '@/components/LogInForm.vue'
+import SignUpForm from '@/components/SignUpForm.vue'
 
 const routes = [
     {
-      path: '/signup',
-      name: 'SignUpForm',
-      component: SignUpForm
+      path: '/login',
+      name: 'LogInForm',
+      component: LogInForm
+    },
+    {
+        path: '/signup',
+        name: 'SignUpForm',
+        component: SignUpForm
     },
     {
       path: '/blog',

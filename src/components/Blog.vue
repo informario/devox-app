@@ -1,13 +1,9 @@
 <script setup>
-  import Paragraph from './components/Paragraph.vue'
-  import LikeButton from './components/LikeButton.vue'
+  import Paragraph from './Paragraph.vue'
   import {fetchParagraphs, pushParagraph, removeParagraph, getUsername} from "@/services/api_blog.js";
   import { ref } from 'vue'
-  import './assets/css/main.css';
-
   import { useRouter, useRoute } from 'vue-router'
   const router = useRouter()
-  const route = useRoute()
   
   const parrafos = ref([])
   const input_content= ref("")
@@ -39,18 +35,7 @@
       })
       .catch(error =>{
         console.log(error.code)
-        router.push("/signup")
-      })
-  }
-  async function remove_text(text_id){
-    await removeParagraph({id: text_id})
-      .then(_ => {
-        parrafos.value = parrafos.value.filter(
-          (t) => t.id !== text_id
-        )
-      })
-      .catch(error =>{
-        this.error = 'Error al eliminar ';
+        router.push("/login")
       })
   }
 
@@ -60,32 +45,29 @@
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-    </div>
-  </header>
+  <div class="blog">
+      <div class="textarea-button">
+        <textarea v-model="input_content"/>
+        <input placeholder="title" v-model="input_title">
+        <button @click="add_text">intro</button>
+      </div>
 
-  <main>
-    <div class="text-button-container">
-      <textarea v-model="input_content" v-on:keyup.enter="add_text"/>
-      <button @click="add_text">intro</button>
-    </div>
-    <div class="double-input">
-      <input placeholder="titulo" v-model="input_title">
-    </div>
 
-      <template v-for="parrafo in parrafos" :key="parrafo.id">
-        <div class="text-button-container">
-          <Suspense>
-            <Paragraph :paragraph="parrafo" :username="getUsername()"/>
-          </Suspense>
-          <button @click="remove_text(parrafo.id)">x</button>
-        </div>
-      </template>
-  </main>
+
+      <div class="paragraph-container">
+        <template v-for="parrafo in parrafos" :key="parrafo.id">
+          <div class="paragraph">
+            <Suspense>
+              <Paragraph :paragraph="parrafo" :username="getUsername()" :paragraphs="parrafos"/>
+            </Suspense>
+          </div>
+        </template>
+      </div>
+
+  </div>
 </template>
 
 <style scoped>
-  @import './assets/css/main.css';
+  @import '../assets/css/styles1.css';
 
 </style>
